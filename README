@@ -1,0 +1,114 @@
+"""
+LabStats
+
+Matthew Del Favero's collection of Modern Lab python functions for python 3
+
+Version 1.1
+
+1.1: Added comments
+
+"""
+
+######## Usage ########
+
+"""
+
+This package is intended to be used for RIT's 'Experiments in Modern Physics,' class.
+There is a heavy emphasis on statistical analysis in this class.
+Many students struggled with creating fits with the Chi Squared value in python.
+Some students spent more than 20 hours per week doing analysis for one lab.
+This package hopes to ease those challenges.
+
+IMPORTANT: You must be using python 3.4 or higher.
+
+################
+
+Basic Usage
+
+If this package is stored in the same directory as your analysis code, you can just put:
+import LabStats
+
+You will call this one from your own python script with the following: 
+
+Labstats.Lab_ODR(...)
+
+The bare minimum inputs for this function are just the x and y data and uncertainties, the name of the fit, the initial guess for the parameters.
+For example:
+
+Labstats.Lab_ODR(x,dx,y,dy,"linear",[2,4])
+
+This will attempt to fit X and Y to a linear fit, using the guess, y = 2x + 4
+There are many other parameters that you can include to make your analysis better.
+If you do not include any output parameters, there will be no output.
+There are three ways to make this function give you an output:
+	"show = 'yes'", will display the plot. 
+	"savename = 'string.png'", will save the plot to the same directory you are doing the analysis from.
+	"output = ..." will return the fit parameters to where you called the function..
+		"output = 'B'" will return only the fit paramters themselves.
+		"output = 'full'" will return the parameters, their uncertainties, the chi^2 value, and the P value.
+You can use all three of these options at the same time.
+They do not interact with each other.
+For example:
+
+Labstats.Lab_ODR(x,dx,y,dy,"linear", [2,4], show = "yes", savename = 'myline.png', output = 'B')
+
+This will do the same fit as above, but will show the plot when finished running, save it under the name, "myline.png", and return the fit parameters.
+
+#################
+
+Graphics
+
+You can also change a few things about the graph by changing other input variables from their defaults.
+You can change the title of the graph, the x and y labels, the coordinates of the text box, and you can zero the x and y axis.
+Example:
+
+Labstats.Lab_ODR(x,dx,y,dy,"linear", [2,4],zero = "yes", title = "Linear Fit", xword = "This is the X axis!", yword = "This is the Y axis!",text_coords = [0.5,0.3],show = "yes"):
+
+The coordinates of the text box should be between 0 and 1.
+
+Zeroing the axis of the plot will attempt to focus the graph on the first quadrant.
+It is not truly zeroed because there is a small offset to capture points on the axis.
+
+#################
+
+Fits and Parameters
+
+The variables for the fit are contained in an array, which the fit refers to as the "beta" parameters.
+The "sbeta" array represents the error in each parameter.
+The Chisquare value graphed is the reduced Chisquare.
+The P value is another tool for analyzing error.
+
+The guess array that you must include must have the same dimensions as the final beta array, which makes sense because each entry in these arrays represent a part of the equation for the fit.
+The fits you can attempt to use include "constant", "slope", "linear", "exponential", "gauss", "single_slit", "double_slit", "two_slits", "single_slit_c", "double_slit_c", and "two_slits_c".
+Most of these are self explanatory, but I will note the number of parameters necessary, so that you can make guesses that don't raise errors.
+	"constant" has one parameter.
+	"slope" has one parameter.
+	"linear" has two parameters.
+	"exponential" has three parameters.
+	"gauss" has three parameters.
+	"single_slit" or "single_slit_c" has one parameter.
+	"double_slit" or "double_slit_c" has two parameters.
+	"two_slits" or "two_slits_c" has three parameters.
+
+
+#################
+
+Notes on Double Slit Tools
+
+The fits for single, double, and two slits assume that the values are normalized.
+If you don't normalize the data first, you are going to have a bad time.
+The "_c" represents the convoluted form of the fit.
+The convolution uses a top-hat function to consider a detector with width.
+The wavelength and the width of the top-hat function must be changed MANUALLY in this program.
+I would reccomend creating a backup first.
+
+#################
+
+Other Utilities
+
+There are some other tools for error analysis at the bottom.
+There are tools for calculating the finite-diference error from a function with different parameters.
+You can read the code and comments to understand what these return.
+
+"""
+
