@@ -73,7 +73,7 @@ def Quicksave_Column(outfile,A):
 	elif len(A.shape) == 2:
 		for i in range(len(A[0])):
 			for j in range(len(A)):
-				fout.write(str(A[j,i])+' ')
+				fout.write(str(A[j,i])+'\t')
 			fout.write('\n')
 	fout.close()
 
