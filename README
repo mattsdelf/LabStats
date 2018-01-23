@@ -9,6 +9,8 @@ Version 1.1
 
 1.2: Added more functions for modeling
 
+1.3: Added kwarg functionality
+
 """
 
 ######## Usage ########

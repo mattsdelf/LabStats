@@ -7,7 +7,7 @@ Matthew Del Favero's collection of Modern Lab python functions for python 3
 
 See README
 
-Version 1.2
+Version 1.3
 
 """
 
@@ -285,7 +285,7 @@ def ODR_Fit(X,dX,Y,dY,guess,fit):
 
 # This is the 'master-function'
 # For usage, see the usage section.
-def Lab_ODR(x,dx,y,dy,fit, param_guess, zero = "no" ,title = "No title", xword = "No X label", yword = "No Y label",text_coords = [0.3,0.75],savename = "no",show ="no",output = "no"):
+def Lab_ODR(x,dx,y,dy,fit, param_guess, zero = "no", text_coords = [0.3,0.75],savename = "no",show ="no",output = "no", **kwargs):
 
 	if len(x) != len(y): raise Exception("The vectors are not the same length! ")
 	if len(x) < 3: raise Exception("Use at least 3 points! ")
@@ -309,16 +309,14 @@ def Lab_ODR(x,dx,y,dy,fit, param_guess, zero = "no" ,title = "No title", xword =
 		fig, ax = pl.subplots()
 		ax.errorbar(x,y,xerr=dx,yerr=dy,fmt='ro',label = "Data")
 		ax.plot(xplot,yplot,label = "Fit")
-		ax.set_title(title)
 		ax.set_xlim(xlims)
 		ax.set_ylim(ylims)
-		ax.set_xlabel(xword)
-		ax.set_ylabel(yword)
 		ax.text(text_coords[0],text_coords[1],
 			Text, fontsize = 17,
 			horizontalalignment = 'center',
 			verticalalignment = 'center',
 			transform = ax.transAxes)
+		ax.set(**kwargs)
 		if show != "no": pl.show()
 		if savename != "no": pl.savefig(savename)
 		pl.close()
